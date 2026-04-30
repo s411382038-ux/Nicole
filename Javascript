@@ -1,16 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. 滾動監聽：導航列陰影
+    // 1. 滾動監聽：導航列陰影與樣式切換
     const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
-            navbar.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.05)';
+            // 改為更符合主題的藍色陰影，並微微發光
+            navbar.style.boxShadow = '0 10px 20px -5px rgba(10, 25, 49, 0.5), 0 0 10px rgba(255, 195, 0, 0.2)';
+            navbar.style.height = '65px'; // 滾動時縮小一點
         } else {
-            navbar.style.boxShadow = 'none';
+            navbar.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)'; // 恢復原來的
+            navbar.style.height = '75px';
         }
     });
 
-    // 2. 平滑捲動補充 (針對舊型瀏覽器優化)
+    
+// 2. 平滑捲動補充 (針對舊型瀏覽器優化)
     const links = document.querySelectorAll('a[href^="#"]');
     links.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -19,16 +23,18 @@ document.addEventListener('DOMContentLoaded', () => {
             
             e.preventDefault();
             const targetElement = document.querySelector(targetId);
-            
+    
+        
             if (targetElement) {
-                const offset = 70; // 扣除固定導覽列高度
+                const offset = 80; // 扣除固定導覽列高度 (稍作調整)
                 const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
                 
                 window.scrollTo({
-                    top: targetPosition,
+  
+                  top: targetPosition,
                     behavior: 'smooth'
                 });
-            }
+}
         });
     });
 });
