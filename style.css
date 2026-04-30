@@ -1,12 +1,29 @@
-/* 基礎設定 */
+/* =========================================
+   閃電十一人 (Inazuma Eleven) 風格設定
+   ========================================= */
+
 :root {
-    --primary: #4f46e5;    /* 科技感亮紫色 */
-    --dark: #0f172a;       /* 深藍背景色 */
-    --light: #f8fafc;      /* 淺灰色 */
-    --text: #334155;       /* 主文字 */
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 雷門中學配色 (Raimon Colors) */
+    --inz-blue-dark: #0a1931;     /* 深藍背景 - 夜空/球場 */
+    --inz-blue-mid: #185adb;      /* 主藍色 - 球衣 */
+    --inz-yellow-bolt: #ffc300;   /* 閃電黃 - 主色調/發光 */
+    --inz-yellow-pale: #fff1af;   /* 淺黃 - 文字增強 */
+    --inz-white: #ffffff;
+    --inz-text-dark: #1a1a1a;
+    --inz-text-light: #e0e0e0;
+
+    /* 遊戲/科技感 */
+    --inz-neon-glow: 0 0 15px rgba(255, 195, 0, 0.7);
+    --inz-card-bg: rgba(255, 255, 255, 0.95);
+    
+    /* 基礎設定移植與修改 */
+    --primary: var(--inz-yellow-bolt);
+    --dark: var(--inz-blue-dark);
+    --light: #f1f5f9;
+    --transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1); /* 更乾脆的動畫 */
 }
 
+/* 基礎設定 */
 * {
     margin: 0;
     padding: 0;
@@ -15,13 +32,16 @@
 
 html {
     scroll-behavior: smooth;
+    font-size: 16px;
 }
 
 body {
-    font-family: 'Inter', -apple-system, sans-serif;
+    /* 使用更有動感的字體 */
+    font-family: 'Kumbh Sans', 'apple-system', sans-serif;
     line-height: 1.6;
-    color: var(--text);
-    background-color: white;
+    color: var(--inz-text-dark);
+    background-color: var(--inz-white);
+    overflow-x: hidden; /* 防止閃電動畫溢出 */
 }
 
 .container {
@@ -30,197 +50,369 @@ body {
     padding: 0 24px;
 }
 
-/* 導覽列 */
-.navbar {
+/* =========================================
+   元件樣式 (Components)
+   ========================================= */
+
+/* 導覽列 (Inazuma Navbar) */
+.inz-navbar {
     position: fixed;
     top: 0; width: 100%;
-    height: 70px;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
+    height: 75px;
+    /* 雷門藍，帶點透明和模糊 */
+    background: rgba(10, 25, 49, 0.9);
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     z-index: 1000;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 3px solid var(--inz-yellow-bolt);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-.navbar .container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-}
-
-.logo {
-    font-weight: 800;
+.inz-logo {
+    font-weight: 900;
+    font-size: 1.5rem;
     text-decoration: none;
-    color: var(--dark);
-    letter-spacing: 1px;
+    color: var(--inz-yellow-bolt);
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    text-shadow: var(--inz-neon-glow);
+}
+
+.inz-logo .lightning {
+    display: inline-block;
+    animation: lightning-flicker 2s infinite;
 }
 
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 2.5rem;
 }
 
 .nav-links a {
     text-decoration: none;
-    color: var(--text);
-    font-size: 0.95rem;
-    font-weight: 600;
+    color: var(--inz-white);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
     transition: var(--transition);
-}
-
-.nav-links a:hover { color: var(--primary); }
-
-/* Hero Section */
-.hero {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    background: radial-gradient(circle at top right, #f1f5f9, #ffffff);
-}
-
-.hero-subtitle {
-    color: var(--primary);
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-
-.hero-title {
-    font-size: clamp(2.5rem, 8vw, 4rem);
-    color: var(--dark);
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-}
-
-.hero-title span { color: var(--primary); }
-
-.hero-tagline {
-    font-size: 1.25rem;
-    max-width: 600px;
-    color: #64748b;
-    margin-bottom: 2.5rem;
-}
-
-/* 按鈕樣式 */
-.btn {
-    display: inline-block;
-    padding: 14px 28px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: var(--transition);
-}
-
-.btn-primary {
-    background: var(--primary);
-    color: white;
-    margin-right: 1rem;
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
-}
-
-.btn-secondary {
-    border: 1.5px solid #e2e8f0;
-    color: var(--dark);
-}
-
-.btn-secondary:hover { background: #f8fafc; }
-
-/* About & Contact 通用 */
-.section { padding: 100px 0; }
-.section-title {
-    font-size: 2rem;
-    color: var(--dark);
-    margin-bottom: 3rem;
     position: relative;
 }
 
-.section-title::after {
+/* 導航懸停：黃色斜線底紋 */
+.nav-links a::after {
     content: '';
-    display: block;
-    width: 60px;
-    height: 4px;
-    background: var(--primary);
-    margin-top: 10px;
-}
-
-.about-card {
-    background: #f8fafc;
-    padding: 2.5rem;
-    border-radius: 16px;
-    border: 1px solid #f1f5f9;
-}
-
-.skills-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 2rem;
-}
-
-.skill-tag {
-    background: white;
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--primary);
-    border: 1px solid #e2e8f0;
-}
-
-/* Contact Grid */
-.contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-}
-
-.contact-card {
-    display: flex;
-    flex-direction: column;
-    padding: 2rem;
-    background: white;
-    border: 1.5px solid #f1f5f9;
-    border-radius: 12px;
-    text-decoration: none;
+    position: absolute;
+    bottom: -5px; left: 0;
+    width: 0; height: 3px;
+    background: var(--inz-yellow-bolt);
     transition: var(--transition);
 }
 
-.contact-card:hover {
-    border-color: var(--primary);
-    transform: translateY(-5px);
+.nav-links a:hover {
+    color: var(--inz-yellow-bolt);
+    text-shadow: var(--inz-neon-glow);
 }
 
-.contact-card .label {
-    font-size: 0.8rem;
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* 按鈕樣式 (Inazuma Buttons) */
+.btn {
+    display: inline-block;
+    padding: 16px 32px;
+    border-radius: 4px; /* 較尖銳的邊角 */
+    text-decoration: none;
+    font-weight: 900;
     text-transform: uppercase;
-    color: #94a3b8;
-    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
 }
 
-.contact-card .value {
-    font-weight: 600;
-    color: var(--dark);
-    word-break: break-all;
+/* 閃電主按鈕：斜邊、黃底黑字 */
+.inz-btn-bolt {
+    background: var(--inz-yellow-bolt);
+    color: var(--inz-blue-dark);
+    border: none;
+    box-shadow: 4px 4px 0 var(--inz-blue-mid);
+    clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%); /* 斜邊設計 */
 }
 
-.footer {
-    padding: 50px 0;
+.inz-btn-bolt:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--inz-blue-mid);
+    background: var(--inz-white);
+}
+
+/* 描邊按鈕：藍底黃字 */
+.inz-btn-outline {
+    background: transparent;
+    color: var(--inz-yellow-bolt);
+    border: 2px solid var(--inz-yellow-bolt);
+    clip-path: polygon(0% 0%, 90% 0%, 100% 100%, 10% 100%); /* 反向斜邊 */
+}
+
+.inz-btn-outline:hover {
+    background: rgba(255, 195, 0, 0.1);
+    box-shadow: var(--inz-neon-glow);
+}
+
+/* 標題裝飾 (Title Decoration) */
+.inz-title-dec {
+    font-size: 2.25rem;
+    font-weight: 900;
+    color: var(--inz-blue-dark);
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+}
+
+.inz-title-dec.light { color: var(--inz-yellow-bolt); text-shadow: var(--inz-neon-glow); }
+
+.inz-title-dec::after {
+    content: '⚡⚡⚡';
+    display: block;
+    font-size: 1rem;
+    color: var(--inz-yellow-bolt);
+    margin-top: 5px;
+    letter-spacing: 5px;
+}
+
+/* =========================================
+   區塊樣式 (Sections)
+   ========================================= */
+
+.section { padding: 120px 0; }
+
+/* Hero Section (Inazuma Hero) */
+.inz-hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    /* 深藍背景 + 隱約的足球六角形圖案 */
+    background-color: var(--inz-blue-dark);
+    background-image: 
+        linear-gradient(rgba(10, 25, 49, 0.6) 2px, transparent 2px),
+        linear-gradient(90seduce(rgba(10, 25, 49, 0.6) 2px, transparent 2px);
+    background-size: 50px 50px;
+    color: var(--inz-white);
+}
+
+/* 足球網格疊加層 */
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmMzMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTAgMGg0MHY0MEgwVjB6bTIwIDIwaDIwdjIwSDIWMjB6TTAgMjBoMjB2MjBIMFYyMHoyMCAwaDIwdjIwSDIwVjB6Ii8+PC9nPjwvZz48L3N2Zz4='); /* 簡易網格 SVG */
+    opacity: 0.5;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+}
+
+.inz-subtitle {
+    color: var(--inz-yellow-bolt);
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.75rem;
+    text-shadow: var(--inz-neon-glow);
+}
+
+.inz-title {
+    font-size: clamp(3rem, 10vw, 5rem);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+}
+
+.inz-title span {
+    color: var(--inz-yellow-bolt);
+    animation: title-glow 3s infinite;
+}
+
+.inz-tagline {
+    font-size: 1.25rem;
+    max-width: 650px;
+    color: var(--inz-text-light);
+    margin-bottom: 3.5rem;
+    font-weight: 400;
+}
+
+/* 球員卡片 (Profile Card) */
+.inz-section {
+    background: #f1f5f9;
+}
+
+.inz-card {
+    background: var(--inz-white);
+    padding: 3rem;
+    border-radius: 8px;
+    border: 4px solid var(--inz-blue-mid);
+    box-shadow: 8px 8px 0 rgba(10, 25, 49, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 卡片裝飾：像遊戲介面 */
+.inz-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 100px; height: 100px;
+    background: var(--inz-yellow-bolt);
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 1rem;
+}
+
+.player-pos {
+    font-weight: 900;
+    color: var(--inz-blue-mid);
+    background: var(--inz-yellow-bolt);
+    padding: 4px 12px;
+    border-radius: 4px;
+}
+
+.player-stats {
+    font-weight: 700;
+    color: #64748b;
+}
+
+.inz-text {
+    font-size: 1.1rem;
+    color: var(--inz-text-dark);
+    margin-bottom: 2rem;
+}
+
+/* 必殺技標籤 (Hissatsu Tags) */
+.inz-hissatsu-container {
+    gap: 15px;
+    margin-top: 2.5rem;
+}
+
+.hissatsu-tag {
+    background: var(--inz-blue-dark);
+    color: var(--inz-yellow-bolt);
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border: 2px solid var(--inz-yellow-bolt);
+    transition: var(--transition);
+    cursor: default;
+    clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
+}
+
+.hissatsu-tag:hover {
+    background: var(--inz-yellow-bolt);
+    color: var(--inz-blue-dark);
+    transform: scale(1.05) rotate(-2deg);
+    box-shadow: var(--inz-neon-glow);
+}
+
+/* 聯繫區塊 - 深色 (Contact Dark) */
+.inz-section-dark {
+    background-color: var(--inz-blue-mid);
+    background-image: radial-gradient(circle at center, #1e70ff, var(--inz-blue-mid));
+    color: var(--inz-white);
+}
+
+.inz-text-light {
+    color: var(--inz-yellow-pale);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+}
+
+/* 聯繫卡片 (Contact Card) */
+.inz-contact-card {
+    background: rgba(10, 25, 49, 0.8);
+    border: 2px solid transparent;
+    padding: 2.5rem 2rem;
+    border-radius: 8px;
+    transition: var(--transition);
     text-align: center;
-    border-top: 1px solid #f1f5f9;
-    color: #94a3b8;
+    align-items: center;
 }
 
-/* 響應式微調 */
+.inz-contact-card:hover {
+    border-color: var(--inz-yellow-bolt);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5), var(--inz-neon-glow);
+    background: var(--inz-blue-dark);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.inz-contact-card .label {
+    color: var(--inz-yellow-pale);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 0.75rem;
+}
+
+.inz-contact-card .value {
+    color: var(--inz-white);
+    font-size: 1rem;
+}
+
+.inz-contact-card:hover .value {
+    color: var(--inz-yellow-bolt);
+}
+
+/* Footer (Inazuma Footer) */
+.inz-footer {
+    background: var(--inz-blue-dark);
+    color: #8da2be;
+    border-top: 4px solid var(--inz-blue-mid);
+    font-weight: 600;
+}
+
+/* =========================================
+   動畫定義 (Animations)
+   ========================================= */
+
+/* 標題發光 */
+@keyframes title-glow {
+    0%, 100% { text-shadow: var(--inz-neon-glow); }
+    50% { text-shadow: 0 0 30px rgba(255, 195, 0, 0.9), 0 0 10px white; }
+}
+
+/* Logo 閃爍 */
+@keyframes lightning-flicker {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    5%, 10% { opacity: 0.5; transform: scale(0.9); }
+    8% { opacity: 1; transform: scale(1.1); text-shadow: 0 0 20px white; }
+    15% { opacity: 0.8; }
+}
+
+/* =========================================
+   響應式微調 (RWD)
+   ========================================= */
 @media (max-width: 768px) {
-    .nav-links { display: none; } /* 手機版簡化為隱藏導航 */
+    .nav-links { display: none; }
     .hero { text-align: center; }
-    .hero-tagline { margin: 0 auto 2.5rem auto; }
-    .btn-primary { margin: 0 0 1rem 0; display: block; }
-    .btn-secondary { display: block; }
+    .inz-title { font-size: 3rem; }
+    .inz-tagline { margin: 0 auto 3rem auto; font-size: 1.1rem; }
+    .hero-btns .btn { display: block; width: 100%; margin: 0 0 1rem 0; clip-path: none; }
+    .inz-card { padding: 2rem; }
+    .hissatsu-tag { width: 100%; text-align: center; clip-path: none; }
 }
